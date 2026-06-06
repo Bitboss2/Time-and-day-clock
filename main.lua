@@ -71,12 +71,8 @@ function DtDisplay:init()
                         UIManager:scheduleIn(wake_dur, function()
                             logger.info("DtDisplay: Releasing wake lock and suspending after screensaver update")
                             SystemUtils.turnOffKeepAwake()
-                            local Powerd = Device:getPowerDevice()
-                            if Powerd and Powerd.toggleSuspend then
-                                Powerd:toggleSuspend()
-                            elseif Device.suspend then
-                                Device:suspend()
-                            end
+                            logger.info("DtDisplay: Triggering UIManager:suspend()")
+                            UIManager:suspend()
                         end)
                     else
                         logger.info("DtDisplay: Skipping screensaver redraw on scheduled wakeup")
@@ -95,12 +91,8 @@ function DtDisplay:init()
                     UIManager:scheduleIn(wake_dur, function()
                         logger.info("DtDisplay: Releasing wake lock and suspending after RTC refresh error")
                         SystemUtils.turnOffKeepAwake()
-                        local Powerd = Device:getPowerDevice()
-                        if Powerd and Powerd.toggleSuspend then
-                            Powerd:toggleSuspend()
-                        elseif Device.suspend then
-                            Device:suspend()
-                        end
+                        logger.info("DtDisplay: Triggering UIManager:suspend()")
+                        UIManager:suspend()
                     end)
                 end
             end)
